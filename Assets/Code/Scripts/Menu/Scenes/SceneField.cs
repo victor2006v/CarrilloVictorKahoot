@@ -1,16 +1,19 @@
 using UnityEngine;
 
 [System.Serializable]
-public class SceneField {
+public class SceneField
+{
     [SerializeField] private Object _sceneAsset;
     [SerializeField] private string _sceneName = "";
 
-    public string SceneName {
+    public string SceneName
+    {
         get { return _sceneName; }
     }
 
-    public static implicit operator string(SceneField sceneField) {
-        return sceneField.SceneName;
+    public static implicit operator string(SceneField sceneField)
+    {
+        return sceneField != null ? sceneField.SceneName : "";
     }
 }
 
