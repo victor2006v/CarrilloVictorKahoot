@@ -363,8 +363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad:
-    _sceneAsset: {fileID: 0}
-    _sceneName: 
+    _sceneAsset: {fileID: 102900000, guid: d643e377008e13b4e864480190ea6a08, type: 3}
+    _sceneName: PlayScene
 --- !u!1 &345080642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,8 +1096,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad:
-    _sceneAsset: {fileID: 0}
-    _sceneName: 
+    _sceneAsset: {fileID: 102900000, guid: 32893a3c6647bfb4588295d77885f6b7, type: 3}
+    _sceneName: OptionsScene
 --- !u!1 &1031396928
 GameObject:
   m_ObjectHideFlags: 0
