@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ActionButtonManager : MonoBehaviour
 {
+    [SerializeField] private GameObject newUserPanel;
+    [SerializeField] private GameObject selectionUserPanel;
     public enum BUTTONS {
         PLAY,
         OPTIONS,
         CONTINUE,
         MAIN_MENU,
+        NEW_USER,
         EXIT
     }
     public BUTTONS currentButton;
@@ -19,7 +20,12 @@ public class ActionButtonManager : MonoBehaviour
     private void Awake() {
         button = GetComponent<Button>();
     }
-
+    private void Start() {
+        if (newUserPanel == null) {
+            Debug.LogWarning("New User Panel is missing");
+            return;
+        }
+    }
     private void OnEnable() {
         if (button != null) button.onClick.AddListener(OnButtonPressed);
     }
@@ -38,6 +44,10 @@ public class ActionButtonManager : MonoBehaviour
             case BUTTONS.CONTINUE:
                 break;
             case BUTTONS.MAIN_MENU:
+                break;
+            case BUTTONS.NEW_USER:
+                selectionUserPanel.SetActive(false);
+                newUserPanel.SetActive(true);
                 break;
             case BUTTONS.EXIT:
                 Application.Quit();
