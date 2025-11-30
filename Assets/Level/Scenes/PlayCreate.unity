@@ -155,10 +155,10 @@ RectTransform:
   - {fileID: 1736874555}
   m_Father: {fileID: 1611997140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 544.91534, y: -300}
-  m_SizeDelta: {x: 363.2769, y: 600}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24228887
 MonoBehaviour:
@@ -988,10 +988,10 @@ RectTransform:
   - {fileID: 1632001753}
   m_Father: {fileID: 1611997140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 181.63844, y: -300}
-  m_SizeDelta: {x: 363.2769, y: 600}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1161550894
 MonoBehaviour:
@@ -1472,8 +1472,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad:
-    _sceneAsset: {fileID: 102900000, guid: 2e07a8bf2cc89f647a4843e3a8d1ed5c, type: 3}
-    _sceneName: KahootSelector
+    _sceneAsset: {fileID: 102900000, guid: d643e377008e13b4e864480190ea6a08, type: 3}
+    _sceneName: PlayScene
 --- !u!114 &1632001758
 MonoBehaviour:
   m_ObjectHideFlags: 0
