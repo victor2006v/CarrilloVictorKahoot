@@ -11,12 +11,16 @@ public class SceneFieldPropertyDrawer : PropertyDrawer
         try
         {
             // Verificación previa básica
-            if (property == null || property.serializedObject == null) return;
+            Debug.Log("A");
+            if (property == null) return;
+            Debug.Log("B");
+            if (property.serializedObject == null) return;
+            Debug.Log("C");
 
             // INTENTO DE ACCESO SEGURO:
             // Si esta línea falla, el 'catch' de abajo capturará el error silenciosamente.
             if (property.serializedObject.targetObject == null) return;
-
+            Debug.Log("E");
             EditorGUI.BeginProperty(position, GUIContent.none, property);
 
             SerializedProperty sceneAsset = property.FindPropertyRelative("_sceneAsset");
@@ -26,6 +30,9 @@ public class SceneFieldPropertyDrawer : PropertyDrawer
 
             if (sceneAsset != null)
             {
+                Debug.Log("F");
+                if (sceneAsset.objectReferenceValue == null) return;
+
                 EditorGUI.BeginChangeCheck();
 
                 // Dibujamos el campo de objeto
@@ -43,8 +50,9 @@ public class SceneFieldPropertyDrawer : PropertyDrawer
 
             EditorGUI.EndProperty();
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
+            Debug.Log(e.Message);
             // Si ocurre CUALQUIER error (como que el objeto fue destruido),
             // no hacemos nada (return). Esto elimina el mensaje rojo de la consola.
             return;

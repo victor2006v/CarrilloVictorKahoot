@@ -4,7 +4,7 @@ using UnityEngine;
 public class SceneField
 {
     [SerializeField] private Object _sceneAsset;
-    [SerializeField] private string _sceneName = "";
+    [SerializeField,HideInInspector] private string _sceneName = "";
 
     public string SceneName
     {

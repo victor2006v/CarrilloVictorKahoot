@@ -28,7 +28,10 @@ EditorBuildSettings:
     guid: 60dcb91eb04af3148b191ae8da5effaa
   - enabled: 1
     path: Assets/Level/Scenes/PlayScene.unity
-    guid: 6363591a8913088478c84d5ec6525087
+    guid: d643e377008e13b4e864480190ea6a08
+  - enabled: 1
+    path: Assets/Level/Scenes/KahootCreator.unity
+    guid: 85b922f1e7bd600469c908541dfff084
   - enabled: 1
     path: Assets/Level/Scenes/PlayCreate.unity
     guid: ce0fa1b5f082dab40950586583ecca4e
