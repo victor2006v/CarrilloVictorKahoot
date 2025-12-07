@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
@@ -5,98 +6,134 @@ using TMPro;
 
 public class QuizSelectorForLeaderboard : MonoBehaviour {
     [Header("UI References")]
-    [SerializeField] private Transform contentContainer; // Content of ScrollView
-    [SerializeField] private GameObject quizButtonPrefab; // Button prefab
+    [SerializeField] private Transform contentContainer;
+    [SerializeField] private GameObject quizButtonPrefab;
 
     private void Start() {
         LoadQuizOptions();
     }
 
     private void LoadQuizOptions() {
-        // Clear existing buttons
-        foreach (Transform child in contentContainer)
+        try
         {
-            Destroy(child.gameObject);
-        }
-
-        // Get all quiz files
-        string path = Path.Combine(Application.persistentDataPath, "quizzes");
-
-        if (!Directory.Exists(path))
-        {
-            Debug.Log("No quizzes folder found");
-            return;
-        }
-
-        string[] filePaths = Directory.GetFiles(path, "*.json");
-
-        if (filePaths.Length == 0)
-        {
-            Debug.Log("No quizzes found");
-            return;
-        }
-
-        // Create a button for each quiz
-        foreach (string filePath in filePaths)
-        {
-            string jsonContent = File.ReadAllText(filePath);
-            FullQuizData quizData = JsonUtility.FromJson<FullQuizData>(jsonContent);
-
-            if (quizData != null)
+            // Clear existing buttons
+            foreach (Transform child in contentContainer)
             {
-                CreateQuizButton(quizData.quizName);
+                Destroy(child.gameObject);
             }
-        }
 
-        // Add an "All Quizzes" button at the top
-        CreateAllQuizzesButton();
+            // Get all quiz files
+            string path = Path.Combine(Application.persistentDataPath, "quizzes");
+
+            if (!Directory.Exists(path))
+            {
+                ErrorLogger.LogWarning("QuizSelectorForLeaderboard", "No quizzes folder found at: " + path);
+                Debug.Log("No quizzes folder found");
+                return;
+            }
+
+            string[] filePaths = Directory.GetFiles(path, "*.json");
+
+            if (filePaths.Length == 0)
+            {
+                ErrorLogger.LogWarning("QuizSelectorForLeaderboard", "No quiz files found in: " + path);
+                Debug.Log("No quizzes found");
+                return;
+            }
+
+            // Create a button for each quiz
+            foreach (string filePath in filePaths)
+            {
+                try
+                {
+                    string jsonContent = File.ReadAllText(filePath);
+                    FullQuizData quizData = JsonUtility.FromJson<FullQuizData>(jsonContent);
+
+                    if (quizData != null)
+                    {
+                        CreateQuizButton(quizData.quizName);
+                    }
+                    else
+                    {
+                        ErrorLogger.LogError("QuizSelectorForLeaderboard", "Failed to parse quiz from: " + filePath);
+                    }
+                }
+                catch (Exception e)
+                {
+                    ErrorLogger.LogException("QuizSelectorForLeaderboard.LoadQuizOptions[foreach]", e);
+                }
+            }
+
+            // Add an "All Quizzes" button at the top
+            CreateAllQuizzesButton();
+        }
+        catch (Exception e)
+        {
+            ErrorLogger.LogException("QuizSelectorForLeaderboard.LoadQuizOptions", e);
+        }
     }
 
     private void CreateAllQuizzesButton() {
-        GameObject button = Instantiate(quizButtonPrefab, contentContainer);
-        button.transform.SetAsFirstSibling(); // Put it at the top
-
-        // Get the text component
-        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        if (buttonText != null)
+        try
         {
-            buttonText.text = "All Quizzes";
+            GameObject button = Instantiate(quizButtonPrefab, contentContainer);
+            button.transform.SetAsFirstSibling();
+
+            TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (buttonText != null)
+            {
+                buttonText.text = "All Quizzes";
+            }
+
+            UnityEngine.UI.Button btn = button.GetComponent<UnityEngine.UI.Button>();
+            if (btn != null)
+            {
+                btn.onClick.AddListener(() => OnQuizSelected(""));
+            }
         }
-
-        // Add click event
-        UnityEngine.UI.Button btn = button.GetComponent<UnityEngine.UI.Button>();
-        if (btn != null)
+        catch (Exception e)
         {
-            btn.onClick.AddListener(() => OnQuizSelected(""));
+            ErrorLogger.LogException("QuizSelectorForLeaderboard.CreateAllQuizzesButton", e);
         }
     }
 
     private void CreateQuizButton(string quizName) {
-        GameObject button = Instantiate(quizButtonPrefab, contentContainer);
-
-        // Get the text component
-        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        if (buttonText != null)
+        try
         {
-            buttonText.text = quizName;
+            GameObject button = Instantiate(quizButtonPrefab, contentContainer);
+
+            TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (buttonText != null)
+            {
+                buttonText.text = quizName;
+            }
+
+            UnityEngine.UI.Button btn = button.GetComponent<UnityEngine.UI.Button>();
+            if (btn != null)
+            {
+                btn.onClick.AddListener(() => OnQuizSelected(quizName));
+            }
         }
-
-        // Add click event
-        UnityEngine.UI.Button btn = button.GetComponent<UnityEngine.UI.Button>();
-        if (btn != null)
+        catch (Exception e)
         {
-            btn.onClick.AddListener(() => OnQuizSelected(quizName));
+            ErrorLogger.LogException("QuizSelectorForLeaderboard.CreateQuizButton", e);
         }
     }
 
     private void OnQuizSelected(string quizName) {
-        // Save selected quiz name
-        PlayerPrefs.SetString("SelectedLeaderboardQuiz", quizName);
-        PlayerPrefs.Save();
+        try
+        {
+            PlayerPrefs.SetString("SelectedLeaderboardQuiz", quizName);
+            PlayerPrefs.Save();
 
-        Debug.Log($"Selected quiz for leaderboard: {(string.IsNullOrEmpty(quizName) ? "All Quizzes" : quizName)}");
+            string displayName = string.IsNullOrEmpty(quizName) ? "All Quizzes" : quizName;
+            Debug.Log("Selected quiz for leaderboard: " + displayName);
 
-        // Go to leaderboard scene
-        SceneManager.LoadScene("Leaderboard");
+            SceneManager.LoadScene("Leaderboard");
+        }
+        catch (Exception e)
+        {
+            ErrorLogger.LogException("QuizSelectorForLeaderboard.OnQuizSelected", e);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class QuizzGameManager : MonoBehaviour {
     [SerializeField] private float timeToWaitAfterAnswer = 2f;
     [SerializeField] private int pointsPerCorrectAnswer = 100;
     [SerializeField] private int pointsPerSecondLeft = 10;
-    [SerializeField] private string leaderboardSelectorScene = "LeaderboardSelector"; // Nueva escena
+    [SerializeField] private string leaderboardSelectorScene = "LeaderboardSelector";
 
     [Header("Colors Configuration")]
     private Color wrongColor = Color.red;
@@ -53,12 +54,40 @@ public class QuizzGameManager : MonoBehaviour {
     }
 
     private void LoadData() {
-        string path = PlayerPrefs.GetString("CurrentQuizPath");
-
-        if (File.Exists(path))
+        try
         {
+            string path = PlayerPrefs.GetString("CurrentQuizPath");
+
+            if (string.IsNullOrEmpty(path))
+            {
+                ErrorLogger.LogError("QuizzGameManager", "CurrentQuizPath is empty or not set");
+                questionTitleText.text = "Error: No quiz selected";
+                return;
+            }
+
+            if (!File.Exists(path))
+            {
+                ErrorLogger.LogError("QuizzGameManager", "Quiz file not found at: " + path);
+                questionTitleText.text = "Error: Quiz not found";
+                return;
+            }
+
             string json = File.ReadAllText(path);
             currentQuiz = JsonUtility.FromJson<FullQuizData>(json);
+
+            if (currentQuiz == null)
+            {
+                ErrorLogger.LogError("QuizzGameManager", "Failed to parse quiz data from: " + path);
+                questionTitleText.text = "Error: Invalid quiz format";
+                return;
+            }
+
+            if (currentQuiz.questions == null || currentQuiz.questions.Count == 0)
+            {
+                ErrorLogger.LogError("QuizzGameManager", "Quiz has no questions");
+                questionTitleText.text = "Error: Empty quiz";
+                return;
+            }
 
             currentQuestionIndex = 0;
             totalScore = 0;
@@ -66,36 +95,43 @@ public class QuizzGameManager : MonoBehaviour {
             UpdateScoreDisplay();
             ShowQuestion();
         }
-        else
+        catch (Exception e)
         {
-            Debug.LogError("File not found!");
-            questionTitleText.text = "Error: Quiz not found";
+            ErrorLogger.LogException("QuizzGameManager.LoadData", e);
+            questionTitleText.text = "Error loading quiz";
         }
     }
 
     private void ShowQuestion() {
-        ResetTextColors();
-
-        if (currentQuestionIndex >= currentQuiz.questions.Count)
+        try
         {
-            EndGame();
-            return;
+            ResetTextColors();
+
+            if (currentQuestionIndex >= currentQuiz.questions.Count)
+            {
+                EndGame();
+                return;
+            }
+
+            QuestionData q = currentQuiz.questions[currentQuestionIndex];
+            questionTitleText.text = q.questionTitle;
+
+            for (int i = 0; i < answerButtonTexts.Length; i++)
+            {
+                if (i < q.answers.Length)
+                    answerButtonTexts[i].text = q.answers[i];
+                else
+                    answerButtonTexts[i].text = "";
+            }
+
+            currentTimer = timePerQuestion;
+            timerText.text = timePerQuestion.ToString();
+            isGameActive = true;
         }
-
-        QuestionData q = currentQuiz.questions[currentQuestionIndex];
-        questionTitleText.text = q.questionTitle;
-
-        for (int i = 0; i < answerButtonTexts.Length; i++)
+        catch (Exception e)
         {
-            if (i < q.answers.Length)
-                answerButtonTexts[i].text = q.answers[i];
-            else
-                answerButtonTexts[i].text = "";
+            ErrorLogger.LogException("QuizzGameManager.ShowQuestion", e);
         }
-
-        currentTimer = timePerQuestion;
-        timerText.text = timePerQuestion.ToString();
-        isGameActive = true;
     }
 
     private void ResetTextColors() {
@@ -109,32 +145,39 @@ public class QuizzGameManager : MonoBehaviour {
         if (!isGameActive) return;
         isGameActive = false;
 
-        int correctIndex = currentQuiz.questions[currentQuestionIndex].correctIndex;
-
-        for (int i = 0; i < answerButtonTexts.Length; i++)
+        try
         {
-            if (i == correctIndex)
-                answerButtonTexts[i].color = correctColor;
+            int correctIndex = currentQuiz.questions[currentQuestionIndex].correctIndex;
+
+            for (int i = 0; i < answerButtonTexts.Length; i++)
+            {
+                if (i == correctIndex)
+                    answerButtonTexts[i].color = correctColor;
+                else
+                    answerButtonTexts[i].color = wrongColor;
+            }
+
+            if (buttonIndex == correctIndex)
+            {
+                correctAnswersCount++;
+                int timeBonus = Mathf.FloorToInt(currentTimer) * pointsPerSecondLeft;
+                int questionPoints = pointsPerCorrectAnswer + timeBonus;
+                totalScore += questionPoints;
+
+                Debug.Log("Correct! +" + questionPoints + " points");
+            }
             else
-                answerButtonTexts[i].color = wrongColor;
-        }
+            {
+                Debug.Log("Incorrect - 0 points");
+            }
 
-        if (buttonIndex == correctIndex)
+            UpdateScoreDisplay();
+            StartCoroutine(WaitAndLoadNext());
+        }
+        catch (Exception e)
         {
-            correctAnswersCount++;
-            int timeBonus = Mathf.FloorToInt(currentTimer) * pointsPerSecondLeft;
-            int questionPoints = pointsPerCorrectAnswer + timeBonus;
-            totalScore += questionPoints;
-
-            Debug.Log($"¡Correct! +{questionPoints} points");
+            ErrorLogger.LogException("QuizzGameManager.OnAnswerClicked", e);
         }
-        else
-        {
-            Debug.Log("Incorrect - 0 points");
-        }
-
-        UpdateScoreDisplay();
-        StartCoroutine(WaitAndLoadNext());
     }
 
     private void UpdateScoreDisplay() {
@@ -157,43 +200,50 @@ public class QuizzGameManager : MonoBehaviour {
     private void EndGame() {
         timerText.text = "0";
         isGameActive = false;
-        questionTitleText.text = "¡Quiz Finished!";
+        questionTitleText.text = "Quiz Finished!";
         SaveScore();
         StartCoroutine(GoToLeaderboardSelector());
     }
 
     private void SaveScore() {
-        string currentUser = PlayerPrefs.GetString("CurrentUser", "Guest");
-
-        ScoreData newScore = new ScoreData(
-            currentUser,
-            currentQuiz.quizName,
-            totalScore,
-            correctAnswersCount,
-            currentQuiz.questions.Count
-        );
-
-        string scoresPath = Path.Combine(Application.persistentDataPath, "scores.json");
-        ScoreList scoreList = new ScoreList();
-
-        if (File.Exists(scoresPath))
+        try
         {
-            string json = File.ReadAllText(scoresPath);
-            scoreList = JsonUtility.FromJson<ScoreList>(json);
-            if (scoreList == null) scoreList = new ScoreList();
+            string currentUser = PlayerPrefs.GetString("CurrentUser", "Guest");
+
+            ScoreData newScore = new ScoreData(
+                currentUser,
+                currentQuiz.quizName,
+                totalScore,
+                correctAnswersCount,
+                currentQuiz.questions.Count
+            );
+
+            string scoresPath = Path.Combine(Application.persistentDataPath, "scores.json");
+            ScoreList scoreList = new ScoreList();
+
+            if (File.Exists(scoresPath))
+            {
+                string json = File.ReadAllText(scoresPath);
+                scoreList = JsonUtility.FromJson<ScoreList>(json);
+                if (scoreList == null) scoreList = new ScoreList();
+            }
+
+            scoreList.scores.Add(newScore);
+
+            string jsonToSave = JsonUtility.ToJson(scoreList, true);
+            File.WriteAllText(scoresPath, jsonToSave);
+
+            Debug.Log("Score saved: " + currentUser + " - " + totalScore + " points (" + correctAnswersCount + "/" + currentQuiz.questions.Count + " correct)");
+
+            PlayerPrefs.SetInt("LastScore", totalScore);
+            PlayerPrefs.SetInt("LastCorrectAnswers", correctAnswersCount);
+            PlayerPrefs.SetInt("LastTotalQuestions", currentQuiz.questions.Count);
+            PlayerPrefs.Save();
         }
-
-        scoreList.scores.Add(newScore);
-
-        string jsonToSave = JsonUtility.ToJson(scoreList, true);
-        File.WriteAllText(scoresPath, jsonToSave);
-
-        Debug.Log($"Score saved: {currentUser} - {totalScore} points ({correctAnswersCount}/{currentQuiz.questions.Count} correct)");
-
-        PlayerPrefs.SetInt("LastScore", totalScore);
-        PlayerPrefs.SetInt("LastCorrectAnswers", correctAnswersCount);
-        PlayerPrefs.SetInt("LastTotalQuestions", currentQuiz.questions.Count);
-        PlayerPrefs.Save();
+        catch (Exception e)
+        {
+            ErrorLogger.LogException("QuizzGameManager.SaveScore", e);
+        }
     }
 
     private IEnumerator GoToLeaderboardSelector() {

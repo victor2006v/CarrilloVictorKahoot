@@ -36,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/PlayCreate.unity
     guid: ce0fa1b5f082dab40950586583ecca4e
   - enabled: 1
-    path: Assets/Level/Scenes/CreateUser.unity
+    path: Assets/Level/Scenes/Reports.unity
     guid: 1d69bcf5070f1574fb2f32973efef626
   - enabled: 1
     path: Assets/Level/Scenes/LeaderboardSelector.unity
