@@ -5,13 +5,12 @@ using UnityEngine.InputSystem.UI;
 
 public class EventSystemManager : MonoBehaviour{
 
-    [Header("Set the first button focus to select")]
-    [SerializeField] private GameObject initialFocusObject;
-
+    [Header("Focus GameObjects")]
+    private GameObject initialFocusObject;
     [HideInInspector] public GameObject lastSelectedObject;
 
+    [Header("Input Actions Configurations")]
     private InputAction clickAction;
-
     private InputSystemUIInputModule uIInputModule;
 
     private void Awake(){
@@ -19,6 +18,8 @@ public class EventSystemManager : MonoBehaviour{
     }
 
     private void Start() {
+        if(EventSystem.current != null) initialFocusObject = EventSystem.current.firstSelectedGameObject;
+
         //If the focus is not null the EventSystem is gonna focus the first gameObject
         if (initialFocusObject != null){
             EventSystem.current.SetSelectedGameObject(initialFocusObject);

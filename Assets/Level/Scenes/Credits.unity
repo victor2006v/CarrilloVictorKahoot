@@ -182,8 +182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Product Owner: V\xEDctor Carrillo\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
-  m_sharedMaterial: {fileID: 5002321216077978632, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
+  m_sharedMaterial: {fileID: 3216995281367955706, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -309,10 +309,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 637700531}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.7877808, y: 0}
-  m_SizeDelta: {x: 5.5757, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -50, y: 0}
+  m_SizeDelta: {x: 266.84595, y: 104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &466146603
 MonoBehaviour:
@@ -336,8 +336,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RETURN
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
-  m_sharedMaterial: {fileID: 5002321216077978632, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
+  m_sharedMaterial: {fileID: 3216995281367955706, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -361,8 +361,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -471,8 +471,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Music/SFX: V\xEDctor Carrillo"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
-  m_sharedMaterial: {fileID: 5002321216077978632, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
+  m_sharedMaterial: {fileID: 3216995281367955706, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -610,9 +610,9 @@ GameObject:
   - component: {fileID: 637700534}
   - component: {fileID: 637700533}
   - component: {fileID: 637700532}
-  - component: {fileID: 637700535}
   - component: {fileID: 637700536}
   - component: {fileID: 637700537}
+  - component: {fileID: 637700538}
   m_Layer: 5
   m_Name: Return Button
   m_TagString: Untagged
@@ -629,11 +629,11 @@ RectTransform:
   m_GameObject: {fileID: 637700530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.72737855, z: 0.72737855}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 466146602}
-  m_Father: {fileID: 1403052488}
+  m_Father: {fileID: 869553186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -722,21 +722,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637700530}
   m_CullTransparentMesh: 1
---- !u!114 &637700535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637700530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21a0f2a692a800438d456909040946b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad:
-    _sceneAsset: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
-    _sceneName: MenuScene
 --- !u!114 &637700536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,6 +734,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e2d0003fc5897445b7e732396226e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 1, g: 0.67058825, b: 0, a: 1}
 --- !u!114 &637700537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,11 +751,26 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 1920
+  m_PreferredWidth: 1614.88
   m_PreferredHeight: 0
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &637700538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637700530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbe8d5b36f75d14dbebbca2d234e328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScene:
+    _sceneAsset: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
+    _sceneName: MenuScene
 --- !u!1 &824432252
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,8 +831,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Game Design: V\xEDctor Carrillo"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
-  m_sharedMaterial: {fileID: 5002321216077978632, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
+  m_sharedMaterial: {fileID: 3216995281367955706, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -984,8 +986,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Animations: V\xEDctor Carrillo"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
-  m_sharedMaterial: {fileID: 5002321216077978632, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
+  m_sharedMaterial: {fileID: 3216995281367955706, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1112,6 +1114,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1252080199}
+  - {fileID: 637700531}
   m_Father: {fileID: 1540600920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1178,10 +1181,10 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!114 &869553190
 MonoBehaviour:
@@ -1199,7 +1202,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: 1920
-  m_PreferredHeight: 0
+  m_PreferredHeight: 112.3
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -1362,6 +1365,7 @@ GameObject:
   - component: {fileID: 1252080199}
   - component: {fileID: 1252080201}
   - component: {fileID: 1252080200}
+  - component: {fileID: 1252080202}
   m_Layer: 5
   m_Name: Version
   m_TagString: Untagged
@@ -1386,7 +1390,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 269.3879, y: 118.0517}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252080200
 MonoBehaviour:
@@ -1471,7 +1475,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 20, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1485,6 +1489,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252080198}
   m_CullTransparentMesh: 1
+--- !u!114 &1252080202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252080198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 0
+  m_PreferredHeight: 118.0517
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1403052487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,7 +1542,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1461292187}
-  - {fileID: 637700531}
   m_Father: {fileID: 1540600920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1759,8 +1782,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Creator: V\xEDctor Carrillo"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
-  m_sharedMaterial: {fileID: 5002321216077978632, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
+  m_sharedMaterial: {fileID: 3216995281367955706, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2050,8 +2073,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Programmers: V\xEDctor Carrillo"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
-  m_sharedMaterial: {fileID: 5002321216077978632, guid: 4a97af27bc0910b4aac997b34a9d1cbc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
+  m_sharedMaterial: {fileID: 3216995281367955706, guid: c9903320d48e0e14cbed8dfd488d326b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2441,7 +2464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58a01745191f854a8332c202e288448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialFocusObject: {fileID: 637700530}
   lastSelectedObject: {fileID: 0}
 --- !u!114 &2061141998
 MonoBehaviour:
@@ -2485,7 +2507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 637700530}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!1660057539 &9223372036854775807
